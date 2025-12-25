@@ -1,68 +1,83 @@
-<script src="https://cdn.tailwindcss.com"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bounce The Ball</title>
+    
+    <link rel="stylesheet" href="style.css">
 
-<div id="game-container" class="relative w-screen h-screen overflow-hidden bg-slate-950">
-  
-  <div id="ui-overlay" class="absolute inset-0 p-4 pointer-events-none z-10 font-sans">
-    <div class="flex justify-between items-start">
-      <div class="hud-card pointer-events-auto">
-        <div id="display-name" class="text-orange-400 font-bold uppercase tracking-tighter">Guest Player</div>
-        <div class="flex space-x-6 items-center">
-          <div class="flex items-center text-white text-2xl font-black">💰 <span id="points-display" class="ml-2">0</span></div>
-          <div id="rank-indicator" class="text-yellow-400 font-bold text-sm"></div>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+</head>
+<body>
+
+    <div id="game-container" class="relative w-screen h-screen overflow-hidden bg-slate-950">
+      
+      <div id="ui-overlay" class="absolute inset-0 p-4 pointer-events-none z-10 font-sans">
+        <div class="flex justify-between items-start">
+          <div class="hud-card pointer-events-auto">
+            <div id="display-name" class="text-orange-400 font-bold uppercase tracking-tighter">Guest Player</div>
+            <div class="flex space-x-6 items-center">
+              <div class="flex items-center text-white text-2xl font-black">💰 <span id="points-display" class="ml-2">0</span></div>
+              <div id="rank-indicator" class="text-yellow-400 font-bold text-sm"></div>
+            </div>
+          </div>
+          <div class="hud-card w-28 text-center pointer-events-auto">
+            <div class="text-rose-500 font-black text-xs tracking-widest">BALLS</div>
+            <div id="balls-display" class="text-4xl text-orange-500 font-black">10</div>
+          </div>
         </div>
       </div>
-      <div class="hud-card w-28 text-center pointer-events-auto">
-        <div class="text-rose-500 font-black text-xs tracking-widest">BALLS</div>
-        <div id="balls-display" class="text-4xl text-orange-500 font-black">10</div>
+
+      <div id="tutorial-screen" class="screen-overlay hidden">
+        <div class="text-center mb-4">
+          <h2 class="text-4xl font-black text-orange-500 mb-2">HOW TO PLAY</h2>
+          <div class="w-24 h-1.5 bg-rose-500 mx-auto rounded-full"></div>
+        </div>
+        <div class="grid grid-cols-1 gap-3 text-white max-w-sm mb-8">
+          <div class="tutorial-card"><span>🖱️</span><p><span class="text-orange-400 font-bold">AIM:</span> Move mouse to target.</p></div>
+          <div class="tutorial-card"><span>⚡</span><p><span class="text-orange-400 font-bold">SHOOT:</span> Click to fire balls!</p></div>
+          <div class="tutorial-card"><span>🏀</span><p><span class="text-orange-400 font-bold">BOUNCE:</span> Hit the table to bounce it into the glasses!</p></div>
+        </div>
+        <button id="confirm-start-btn" class="btn-start">I'M READY!</button>
       </div>
-    </div>
-  </div>
 
-  <div id="tutorial-screen" class="screen-overlay hidden">
-    <div class="text-center mb-4">
-      <h2 class="text-4xl font-black text-orange-500 mb-2">HOW TO PLAY</h2>
-      <div class="w-24 h-1.5 bg-rose-500 mx-auto rounded-full"></div>
-    </div>
-    <div class="grid grid-cols-1 gap-3 text-white max-w-sm mb-8">
-      <div class="tutorial-card"><span>🖱️</span><p><span class="text-orange-400 font-bold">AIM:</span> Move mouse to target.</p></div>
-      <div class="tutorial-card"><span>⚡</span><p><span class="text-orange-400 font-bold">SHOOT:</span> Click to fire balls!</p></div>
-      <div class="tutorial-card"><span>🏀</span><p><span class="text-orange-400 font-bold">BOUNCE:</span> Hit the table to bounce it into the glasses!</p></div>
-    </div>
-    <button id="confirm-start-btn" class="btn-start">I'M READY!</button>
-  </div>
-
-  <div id="message-screen" class="screen-overlay">
-    <div class="text-center mb-8">
-      <h1 class="text-5xl font-black text-orange-500 italic uppercase">Bounce <span class="text-white">The Ball</span></h1>
-      <div class="w-24 h-1.5 bg-rose-500 mx-auto mt-2 rounded-full"></div>
-    </div>
-    <div id="name-entry-container" class="mb-8">
-      <input id="player-name-input" maxlength="12" placeholder="Enter Nickname" class="name-input">
-    </div>
-    <div id="message-text" class="text-orange-200 text-xl font-medium mb-10 text-center">Ready to test your aim?</div>
-    <div class="flex flex-col gap-4 items-center">
-      <button id="start-game-btn" class="btn-start">START GAME</button>
-      <div class="flex gap-4">
-        <button id="leaderboard-btn" class="btn-neon">🏆 RANKINGS</button>
-        <button id="exit-game-btn" class="hidden btn-exit">EXIT</button>
+      <div id="message-screen" class="screen-overlay">
+        <div class="text-center mb-8">
+          <h1 class="text-5xl font-black text-orange-500 italic uppercase">Bounce <span class="text-white">The Ball</span></h1>
+          <div class="w-24 h-1.5 bg-rose-500 mx-auto mt-2 rounded-full"></div>
+        </div>
+        <div id="name-entry-container" class="mb-8">
+          <input id="player-name-input" maxlength="12" placeholder="Enter Nickname" class="name-input">
+        </div>
+        <div id="message-text" class="text-orange-200 text-xl font-medium mb-10 text-center">Ready to test your aim?</div>
+        <div class="flex flex-col gap-4 items-center">
+          <button id="start-game-btn" class="btn-start">START GAME</button>
+          <div class="flex multi-button-gap">
+            <button id="leaderboard-btn" class="btn-neon">🏆 RANKINGS</button>
+            <button id="exit-game-btn" class="hidden btn-exit">EXIT</button>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div id="modal-container" class="hidden modal-bg">
-    <div class="modal-card">
-      <div class="modal-header">
-        <h2 class="font-bold">🏮 TOP PLAYERS</h2>
-        <button id="close-modal-btn" class="text-2xl font-bold">&times;</button>
+      <div id="modal-container" class="hidden modal-bg">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2 class="font-bold">🏮 TOP PLAYERS</h2>
+            <button id="close-modal-btn" class="text-2xl font-bold">&times;</button>
+          </div>
+          <div id="modal-content" class="p-4 text-white"></div>
+        </div>
       </div>
-      <div id="modal-content" class="p-4 text-white"></div>
-    </div>
-  </div>
 
-  <footer class="absolute bottom-4 w-full text-center pointer-events-none z-[60]">
-    <p class="text-[10px] uppercase tracking-[0.2em] text-white/30 font-sans">
-      Developed by <span class="text-orange-500/60 font-bold">John Emanuel Yamas</span> &copy; 2025
-    </p>
-  </footer>
-</div>
+      <footer class="absolute bottom-4 w-full text-center pointer-events-none z-[60]">
+        <p class="text-[10px] uppercase tracking-[0.2em] text-white/30 font-sans">
+          Developed by <span class="text-orange-500/60 font-bold">John Emanuel Yamas</span> &copy; 2025
+        </p>
+      </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
