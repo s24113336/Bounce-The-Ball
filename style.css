@@ -1,0 +1,78 @@
+.hud-card {
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 1.25rem;
+  padding: 1rem 1.5rem;
+  border-bottom: 4px solid #f97316;
+}
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.96);
+  backdrop-filter: blur(10px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+  pointer-events: auto;
+}
+.tutorial-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background: rgba(30, 41, 59, 0.6);
+  padding: 1rem; /* Reduced padding slightly for 3 cards */
+  border-radius: 1rem;
+  border: 1px solid rgba(249, 115, 22, 0.3);
+}
+.name-input {
+  background: #0f172a;
+  color: white;
+  border: 3px solid #f97316;
+  border-radius: 1rem;
+  padding: 1rem 2rem;
+  text-align: center;
+  outline: none;
+}
+.btn-start {
+  background: #22c55e;
+  color: #052e16;
+  font-weight: 900;
+  padding: 1.25rem 4rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.btn-exit {
+  background: #334155;
+  color: white;
+  font-weight: 800;
+  padding: 1.25rem 3rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.btn-neon {
+  background: linear-gradient(to bottom right, #f97316, #e11d48);
+  color: white;
+  font-weight: 800;
+  padding: 1.25rem 2rem;
+  border-radius: 1rem;
+  cursor: pointer;
+}
+.modal-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+}
+.modal-card {
+  background: #0f172a;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 1.5rem;
+  border: 2px solid #f97316;
+}
+.modal-header { background: #f97316; padding: 1rem; color: white; display: flex; justify-content: space-between; }
